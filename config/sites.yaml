@@ -1,0 +1,33 @@
+sites:
+  snatches:
+    name: "CodeSnatches Tutorials"
+    url: "https://localhost/codesnatches/tutorials"
+    form_id: "commentForm"
+    username_field: "username_comm"
+    content_field: "content_comm"
+    challenge_field: "user_answer_for_sc"
+    submit_button: "input[name='page_comment_submit']"
+    success_message: "Your comment has been posted"
+    error_container: ".main-message--error"
+    
+  services:
+    name: "Services - About"
+    url: "https://localhost/services/about"
+    form_id: "commentForm"
+    username_field: "username_comm"
+    content_field: "content_comm"
+    challenge_field: "user_answer_for_sc"
+    submit_button: "input[name='page_comment_submit']"
+    success_message: "Your comment has been posted"
+    error_container: ".main-message--error"
+
+  f-guitar:
+    name: "f-guitar"
+    url: "https://f-guitar.com/licks-4.html"
+    form_id: "commentForm"
+    username_field: "username_comm"
+    content_field: "content_comm"
+    challenge_field: "user_answer_for_sc"
+    submit_button: "input[name='page_comment_submit']"
+    success_message: "Your comment has been posted"
+    error_container: ".main-message--error"

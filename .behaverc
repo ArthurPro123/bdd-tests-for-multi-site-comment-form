@@ -1,0 +1,10 @@
+[behave]
+/* format=progress */
+outfiles=report_test_results.txt
+paths=features
+quiet=False
+summary=True
+
+format=progress
+no_capture=True
+show_timings=True
