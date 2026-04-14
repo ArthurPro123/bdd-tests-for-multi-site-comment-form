@@ -1,6 +1,8 @@
 # steps/comment_steps.py
 
 # notes temp:
+# comment_form_page.py doesn't use css sel. from the config file.
+
 # 1. add a few screenshots of test output to readme
 # 2. get badge (githab actions)
 
@@ -13,6 +15,7 @@ comment form page object and validate expected behaviors.
 
 from behave import given, when, then
 from pages.comment_form_page import CommentFormPage
+
 import colorama as color
 
 # Initialize colorama for colored console output
@@ -83,11 +86,10 @@ def step_fill_form(context):
 
 
 @when('I submit the form')
+@when('I submit the empty form')
 def step_submit_form(context):
     """
     Submit the comment form.
-    
-    Uses the standard form submission action (not the empty form variation).
     
     Args:
         context: Behave context containing current_form
@@ -106,19 +108,6 @@ def step_check_success_message(context, message):
     """
     assert context.current_form.is_success_message_displayed(), \
         f"Success message '{message}' not displayed"
-
-
-@when('I submit the empty form')
-def step_submit_empty_form(context):
-    """
-    Submit the comment form without filling any fields.
-    
-    Used to trigger validation error messages for required fields.
-    
-    Args:
-        context: Behave context containing current_form
-    """
-    context.current_form.submit_empty_form()
 
 
 @then('I should see an error message displayed')
@@ -146,10 +135,11 @@ def step_check_validation_errors(context):
     error_messages = context.current_form.get_error_messages()
     
     print(f"{color.Fore.YELLOW}")
+
     print(f"\n{'='*50}")
     print(f"VALIDATION ERROR CHECK")
     print(f"{'='*50}")
-    print(f"Actual errors found: {len(error_messages)}")
+    print(f"Actual errors found: {len(error_messages)}\n")
     
     for i, msg in enumerate(error_messages, 1):
         print(f"  {i}. {msg}")
@@ -157,18 +147,22 @@ def step_check_validation_errors(context):
     print(f"\nExpected errors:")
     
     for row in context.table:
+
         field = row[0].strip()
         expected = row[1].strip()
-        print(f"  • {field}: '{expected}'")
-        
+
         # Check if expected error is in actual errors
         found = any(expected.lower() in msg.lower() for msg in error_messages)
+
         status = "✓" if found else "✗"
-        print(f"    {status} Found: {found}")
+
+        print(f"  • {field}: '{expected}' ({status} Found: {found})")
+        
         
         assert found, f"Field '{field}': Expected error '{expected}' not found"
     
     print(f"\n✅ All validation errors verified")
+
     print(f"{color.Style.RESET_ALL}")
 
 

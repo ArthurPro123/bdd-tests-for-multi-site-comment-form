@@ -57,9 +57,11 @@ Feature: Comment Form Submission on Multiple Sites
       | field     | value         |
       | username  |               |
       | content   | Test comment  |
+
     And I submit the form
     Then I should see an error message displayed
     And I should see field error "Your Alias or Name"
+
     Examples:
       | site     |
       | snatches |
@@ -75,9 +77,11 @@ Feature: Comment Form Submission on Multiple Sites
       | field     | value        |
       | username  | Test User    |
       | content   |              |
+
     And I submit the form
     Then I should see an error message displayed
     And I should see field error "Comments"
+
     Examples:
       | site     |
       | snatches |
@@ -94,9 +98,11 @@ Feature: Comment Form Submission on Multiple Sites
       | username  | Test User     |
       | content   | Test comment  |
       | challenge | wrong_answer  |
+
     And I submit the form
     Then I should see an error message displayed
     And I should see field error "Submission Challenge"
+
     Examples:
       | site     |
       | snatches |

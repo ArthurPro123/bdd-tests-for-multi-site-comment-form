@@ -1,1 +1,1 @@
-features/comment_submission.feature  S.S
+features/comment_submission.feature  S.SS.SS.SS.SS.S

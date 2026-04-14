@@ -64,23 +64,6 @@ Run: `playwright install firefox`
 
 ## Sample Output
 
-*** Running tests on ALL sites ***
-
-VALIDATION ERROR CHECK
-==================================================
-Actual errors found: 3
-
-    - Your Alias or Name
-    - Comments
-    - Submission Challenge
-
-Expected errors:
-• Your Alias or Name: 'Your Alias or Name' ✓ Found: True
-• Comments: 'Comments' ✓ Found: True
-• Submission Challenge: 'Submission Challenge' ✓ Found: True
-
-All validation errors verified
-
 1 feature passed, 0 failed, 0 skipped
 5 scenarios passed, 0 failed, 0 skipped
 84 steps passed, 0 failed, 0 skipped, 0 undefined
