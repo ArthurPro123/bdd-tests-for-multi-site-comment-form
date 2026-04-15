@@ -32,15 +32,9 @@ env/
 *.swo
 *~
 
-# Test results
-.behave/
-test_results.txt
-*.log
-
-# Playwright
 .pytest_cache/
-test-results/
 
+.behave/
 tags
 CONTEXT.TXT
-report_test_results.txt
+reports/

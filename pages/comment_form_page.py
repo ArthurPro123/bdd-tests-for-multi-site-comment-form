@@ -1,4 +1,3 @@
-# comment_form_page.py
 
 """
 Page Object Model for comment form interactions across multiple sites.
@@ -15,15 +14,22 @@ class CommentFormPage:
         """Initialize page object with site-specific selectors."""
         self.page = page
         self.config = site_config
-        self.username_field = f"#{site_config['username_field']}"
-        self.content_field = f"#{site_config['content_field']}"
-        self.challenge_field = f"#{site_config['challenge_field']}"
-        self.submit_button = site_config['submit_button']
+        self.username_field_selector = f"{site_config['username_field_selector']}"
+        self.content_field_selector = f"{site_config['content_field_selector']}"
+        self.challenge_field_selector = f"{site_config['challenge_field_selector']}"
+        self.submit_button_selector = site_config['submit_button_selector']
+        
+        # Optional selectors with defaults
+        self.form_selector = site_config.get('form_selector')
+        self.error_container_selector = site_config.get('error_container_selector')
+        self.error_list_selector = site_config.get('error_list_selector')
+        self.success_container_selector = site_config.get('success_container_selector', '.main-message--success')
+        self.success_text = site_config.get('success_message', 'Your comment has been posted')
 
     def navigate(self):
         """Navigate to site URL and wait for form to load."""
         self.page.goto(self.config['url'], wait_until='networkidle')
-        self.page.wait_for_selector("#commentForm")
+        self.page.wait_for_selector(self.form_selector)
 
     def get_captcha_answer(self) -> str:
         """Extract captcha question from page, compute and return answer."""
@@ -37,30 +43,30 @@ class CommentFormPage:
 
     def fill_username(self, username: str):
         """Fill username field. Empty string clears the field."""
-        self.page.fill(self.username_field, username or "")
+        self.page.fill(self.username_field_selector, username or "")
 
     def fill_content(self, content: str):
         """Fill comment content field. Empty string clears the field."""
-        self.page.fill(self.content_field, content or "")
+        self.page.fill(self.content_field_selector, content or "")
 
     def fill_challenge(self, answer: str = None):
         """Fill challenge field. Auto-calculates answer if not provided."""
         if not answer:
             answer = self.get_captcha_answer()
-        self.page.fill(self.challenge_field, answer)
+        self.page.fill(self.challenge_field_selector, answer)
 
     def submit_form(self):
         """Submit form and wait for response."""
-        self.page.click(self.submit_button)
+        self.page.click(self.submit_button_selector)
 
     def submit_empty_form(self):
         """Submit form without waiting (used for validation testing)."""
-        self.page.click(self.submit_button)
+        self.page.click(self.submit_button_selector)
 
     def is_error_displayed(self) -> bool:
         """Check if error message is visible (3 second timeout)."""
         try:
-            self.page.wait_for_selector(".main-message--error:not([style*='display: none'])", timeout=3000)
+            self.page.wait_for_selector(f"{self.error_container_selector}:not([style*='display: none'])", timeout=3000)
             return True
         except:
             return False
@@ -68,16 +74,16 @@ class CommentFormPage:
     def get_error_messages(self) -> list:
         """Extract and return list of validation error messages."""
         try:
-            self.page.wait_for_selector("#formErrorList", timeout=3000)
+            self.page.wait_for_selector(self.error_list_selector, timeout=3000)
             return [link.text_content().strip().replace('•', '').strip() 
-                    for link in self.page.query_selector_all("#formErrorList li a")]
+                    for link in self.page.query_selector_all(f"{self.error_list_selector} li a")]
         except:
             return []
 
     def is_success_message_displayed(self) -> bool:
         """Check if success message is displayed."""
         try:
-            self.page.wait_for_selector(".main-message--success", timeout=3000)
-            return "comment has been posted" in self.page.text_content(".main-message--success")
+            self.page.wait_for_selector(self.success_container_selector, timeout=3000)
+            return self.success_text.lower() in self.page.text_content(self.success_container_selector).lower()
         except:
             return False
