@@ -91,4 +91,5 @@ Took 0m54.514s
 ---
 
 [About Me](https://codesnatches.com/qa/)
+|
 [Contact Form](https://codesnatches.com/qa/#nav_contact)
