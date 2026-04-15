@@ -4,7 +4,8 @@
 
 BDD test automation framework for validating comment forms across multiple websites using Behave and Playwright.
 
-![Test Execution Output](screenshots/Screenshot_combined.png)
+# ![Test Execution Output](screenshots/Screenshot_combined.png)
+![Running behave tests](screenshots/screencast-happy-path.gif "Running Test Suite - Happy Path")
 
 ---
 

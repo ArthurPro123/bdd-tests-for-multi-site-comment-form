@@ -9,8 +9,10 @@ Feature: Comment Form Submission on Multiple Sites
     Given I have access to comment forms on all configured sites
 
 
+	# ---
 
-  @smoke
+
+  @smoke @happy-path
   Scenario Outline: Submit form with all required fields filled successfully on <site>
 
     When I navigate to the comment form on "<site>"
@@ -28,6 +30,8 @@ Feature: Comment Form Submission on Multiple Sites
       | services |
       | f-guitar |
 
+
+	# ---
 
 
   @smoke
@@ -49,6 +53,8 @@ Feature: Comment Form Submission on Multiple Sites
       | f-guitar |
 
 
+	# ---
+
 
   @regression
   Scenario Outline: Submit form with missing username shows error on <site>
@@ -69,6 +75,8 @@ Feature: Comment Form Submission on Multiple Sites
       | f-guitar |
 
 
+	# ---
+
 
   @regression
   Scenario Outline: Submit form with missing comment content shows error on <site>
@@ -88,6 +96,8 @@ Feature: Comment Form Submission on Multiple Sites
       | services |
       | f-guitar |
 
+
+	# ---
 
 
   @regression
