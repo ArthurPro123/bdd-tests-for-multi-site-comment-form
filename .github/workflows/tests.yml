@@ -28,5 +28,5 @@ jobs:
     
     - name: Run Behave tests
       # run: xvfb-run  behave  # xvfb-run provides virtual display for GitHub Actions.
-      run: xvfb-run  behave -D site=snatches --tags happy-path  # xvfb-run provides virtual display for GitHub Actions.
+      run: xvfb-run  behave -D site=f-guitar --tags happy-path  # xvfb-run provides virtual display for GitHub Actions.
       
