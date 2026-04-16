@@ -91,17 +91,17 @@ def step_submit_form(context):
     context.current_form.submit_form()
 
 
-@then('I should see success message "{message_text}"')
-def step_check_success_message(context, message_text):
+@then('I should see success message "{expected_text}"')
+def step_check_success_message(context, expected_text):
     """
     Verify that a success message is displayed after form submission.
     
     Args:
         context: Behave context containing current_form
-        message_text: Expected success message text
+        expected_text: Expected success message text
     """
-    assert context.current_form.is_success_message_displayed(message_text), \
-        f"Success message '{message_text}' not displayed"
+    assert context.current_form.is_success_message_displayed(expected_text), \
+        f"Success message '{expected_text}' not displayed"
 
 
 @then('I should see an error message displayed')
