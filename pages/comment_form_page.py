@@ -60,7 +60,7 @@ class CommentFormPage:
         self.page.click(self.submit_button_selector)
 
 
-    def is_error_displayed(self, expected_text: str = None) -> bool:
+    def is_error_message_displayed(self, expected_text: str = None) -> bool:
         """
         Check if error message is visible.
         If expected_text provided, also verify it contains that text.
@@ -86,19 +86,23 @@ class CommentFormPage:
             return False
 
 
-    def get_error_messages(self) -> list:
-        """Extract and return list of validation error messages."""
+    def is_success_message_displayed(self, expected_text: str) -> bool:
+        """Check if success message is displayed."""
+        try:
+            self.page.wait_for_selector(
+                f"{self.success_container_selector}:not([style*='display: none'])",
+                timeout=3000
+            )
+            return expected_text.lower() in self.page.text_content(self.success_container_selector).lower()
+        except:
+            return False
+
+
+    def get_form_field_error_messages(self) -> list:
+        """Extract and return list of validation error messages at the form fields."""
         try:
             self.page.wait_for_selector(self.error_list_selector, timeout=3000)
             return [link.text_content().strip().replace('•', '').strip() 
                     for link in self.page.query_selector_all(f"{self.error_list_selector} li a")]
         except:
             return []
-
-    def is_success_message_displayed(self, success_text: str) -> bool:
-        """Check if success message is displayed."""
-        try:
-            self.page.wait_for_selector(self.success_container_selector, timeout=3000)
-            return success_text.lower() in self.page.text_content(self.success_container_selector).lower()
-        except:
-            return False

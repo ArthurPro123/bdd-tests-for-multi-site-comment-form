@@ -116,7 +116,7 @@ def step_check_error_displayed(context, expected_text: str = None):
         context: Behave context containing current_form
         expected_text: substring expected in the error message (optional)
     """
-    assert context.current_form.is_error_displayed(expected_text), \
+    assert context.current_form.is_error_message_displayed(expected_text), \
         "Error message not displayed or text mismatch"
 
 
@@ -131,7 +131,7 @@ def step_check_validation_errors(context):
     Args:
         context: Behave context containing current_form
     """
-    error_messages = context.current_form.get_error_messages()
+    error_messages = context.current_form.get_form_field_error_messages()
     
     print(f"{color.Fore.YELLOW}")
 
@@ -174,6 +174,7 @@ def step_check_field_error(context, field_label):
         context: Behave context containing current_form
         field_label: Label of the field expected to have an error
     """
-    error_messages = context.current_form.get_error_messages()
+    error_messages = context.current_form.get_form_field_error_messages()
+
     assert any(field_label.lower() in e.lower() for e in error_messages), \
         f"'{field_label}' not found in {error_messages}"
